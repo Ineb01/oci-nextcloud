@@ -12,6 +12,7 @@ spec:
       labels:
         app: autossh
     spec:
+      serviceAccountName: ssh-key-creator
       initContainers:
       - name: wait-for-secret
         image: alpine:latest
