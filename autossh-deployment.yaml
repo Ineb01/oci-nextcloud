@@ -35,12 +35,14 @@ spec:
           value: "4022"
         - name: SSH_REMOTE_USER
           value: "ineb01"
-        - name: SSH_TUNNEL_REMOTE
-          value: "2049"
-        - name: SSH_TUNNEL_LOCAL
-          value: "2049"
-        - name: SSH_TUNNEL_HOST
+        - name: SSH_BIND_IP
           value: "0.0.0.0"
+        - name: SSH_TUNNEL_PORT
+          value: "2049"
+        - name: SSH_TARGET_HOST
+          value: "localhost"
+        - name: SSH_TARGET_PORT
+          value: "2049"
         - name: SSH_HOSTKEY_VERIFICATION
           value: "false"
         - name: SSH_MODE
