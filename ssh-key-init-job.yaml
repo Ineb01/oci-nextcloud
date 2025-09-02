@@ -15,9 +15,9 @@ spec:
         - |
           apk add --no-cache openssh-client kubectl
           ssh-keygen -t rsa -b 2048 -f /tmp/id_rsa -N ""
-          KEY_B64=$(cat /tmp/id_rsa | base64 -w 0)
-          kubectl patch secret ssh-key -n applications --type='json' -p="[{\"op\": \"replace\", \"path\": \"/data/id_rsa\", \"value\": \"$KEY_B64\"}]"
-          echo "SSH key secret updated. Public key:"
+          kubectl delete secret ssh-key -n applications --ignore-not-found=true
+          kubectl create secret generic ssh-key --from-file=id_rsa=/tmp/id_rsa -n applications
+          echo "SSH key secret created. Public key:"
           cat /tmp/id_rsa.pub
       restartPolicy: Never
 ---
@@ -33,7 +33,7 @@ metadata:
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
-  verbs: ["create", "update", "patch", "get"]
+  verbs: ["create", "update", "patch", "get", "delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
