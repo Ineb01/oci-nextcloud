@@ -36,11 +36,11 @@ spec:
         - name: SSH_REMOTE_USER
           value: "ineb01"
         - name: SSH_TUNNEL_REMOTE
-          value: "2049"
+          value: "127.0.0.1:2049"
         - name: SSH_TUNNEL_LOCAL
           value: "2049"
         - name: SSH_TUNNEL_HOST
-          value: "0.0.0.0"
+          value: "localhost"
         - name: SSH_HOSTKEY_VERIFICATION
           value: "false"
         - name: SSH_MODE
