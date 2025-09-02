@@ -47,6 +47,8 @@ spec:
           value: "false"
         - name: SSH_MODE
           value: "-o PasswordAuthentication=no -o PubkeyAuthentication=yes"
+        - name: SSH_MODE
+          value: "-L"
         ports:
         - containerPort: 2049
           name: nfs
