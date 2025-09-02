@@ -34,7 +34,7 @@ spec:
         - name: SSH_REMOTE_PORT
           value: "4022"
         - name: SSH_REMOTE_USER
-          value: "pi"
+          value: "ineb01"
         - name: SSH_TUNNEL_REMOTE
           value: "2049"
         - name: SSH_TUNNEL_LOCAL
