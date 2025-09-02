@@ -13,6 +13,18 @@ spec:
       labels:
         app: autossh
     spec:
+      initContainers:
+      - name: wait-for-secret
+        image: alpine:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          apk add --no-cache kubectl
+          until kubectl get secret ssh-key; do
+            echo "Waiting for ssh-key secret..."
+            sleep 5
+          done
       containers:
       - name: autossh
         image: jnovack/autossh:latest

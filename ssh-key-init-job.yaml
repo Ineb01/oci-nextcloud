@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ssh-key-init
+spec:
+  template:
+    spec:
+      serviceAccountName: ssh-key-creator
+      containers:
+      - name: ssh-key-generator
+        image: alpine:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          apk add --no-cache openssh-client kubectl
+          ssh-keygen -t rsa -b 2048 -f /tmp/id_rsa -N ""
+          kubectl create secret generic ssh-key --from-file=id_rsa=/tmp/id_rsa --dry-run=client -o yaml | kubectl apply -f -
+          echo "SSH key secret created. Public key:"
+          cat /tmp/id_rsa.pub
+      restartPolicy: Never
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ssh-key-creator
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: secret-manager
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["create", "update", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ssh-key-creator-binding
+subjects:
+- kind: ServiceAccount
+  name: ssh-key-creator
+roleRef:
+  kind: Role
+  name: secret-manager
+  apiGroup: rbac.authorization.k8s.io
