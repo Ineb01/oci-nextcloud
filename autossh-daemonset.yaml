@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: autossh-host
+spec:
+  selector:
+    matchLabels:
+      app: autossh-host
+  template:
+    metadata:
+      labels:
+        app: autossh-host
+    spec:
+      hostNetwork: true
+      serviceAccountName: ssh-key-creator
+      containers:
+      - name: autossh
+        image: jnovack/autossh:latest
+        env:
+        - name: SSH_REMOTE_HOST
+          value: "ssh.external.wg.dphx.eu"
+        - name: SSH_REMOTE_PORT
+          value: "4022"
+        - name: SSH_REMOTE_USER
+          value: "ineb01"
+        - name: SSH_BIND_IP
+          value: "127.0.0.1"
+        - name: SSH_TUNNEL_PORT
+          value: "2049"
+        - name: SSH_TARGET_HOST
+          value: "127.0.0.1"
+        - name: SSH_TARGET_PORT
+          value: "2049"
+        - name: SSH_MODE
+          value: "-L"
+        - name: SSH_HOSTKEY_VERIFICATION
+          value: "false"
+        volumeMounts:
+        - name: ssh-key
+          mountPath: /id_rsa
+          subPath: id_rsa
+          readOnly: true
+        securityContext:
+          runAsUser: 0
+      volumes:
+      - name: ssh-key
+        secret:
+          secretName: ssh-key
+          defaultMode: 0600
