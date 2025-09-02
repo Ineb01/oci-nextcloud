@@ -36,7 +36,7 @@ spec:
         - name: SSH_REMOTE_USER
           value: "ineb01"
         - name: SSH_BIND_IP
-          value: "127.0.0.1"
+          value: "0.0.0.0"
         - name: SSH_TUNNEL_PORT
           value: "2049"
         - name: SSH_TARGET_HOST
