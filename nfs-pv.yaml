@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: 10.43.234.216
+    server: 127.0.0.1
     path: /home/public
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
