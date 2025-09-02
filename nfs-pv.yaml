@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: autossh-service.applications.svc.cluster.local
+    server: 10.43.234.216
     path: /mnt/nextcloud-data
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
