@@ -15,8 +15,9 @@ spec:
         - |
           apk add --no-cache openssh-client kubectl
           ssh-keygen -t rsa -b 2048 -f /tmp/id_rsa -N ""
-          kubectl create secret generic ssh-key --from-file=id_rsa=/tmp/id_rsa --dry-run=client -o yaml | kubectl apply -f - -n applications
-          echo "SSH key secret created. Public key:"
+          KEY_B64=$(cat /tmp/id_rsa | base64 -w 0)
+          kubectl patch secret ssh-key -n applications --type='json' -p="[{\"op\": \"replace\", \"path\": \"/data/id_rsa\", \"value\": \"$KEY_B64\"}]"
+          echo "SSH key secret updated. Public key:"
           cat /tmp/id_rsa.pub
       restartPolicy: Never
 ---
