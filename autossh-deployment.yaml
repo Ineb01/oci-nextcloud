@@ -46,7 +46,7 @@ spec:
         - name: SSH_HOSTKEY_VERIFICATION
           value: "false"
         - name: SSH_MODE
-          value: "-L -o PasswordAuthentication=no -o PubkeyAuthentication=yes"
+          value: "-o PasswordAuthentication=no -o PubkeyAuthentication=yes -L"
         ports:
         - containerPort: 2049
           name: nfs
