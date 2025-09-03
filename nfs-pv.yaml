@@ -9,6 +9,6 @@ spec:
     - ReadWriteMany
   nfs:
     server: 127.0.0.1
-    path: /home/public
+    path: /home/public/Nextcloud
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs

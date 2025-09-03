@@ -23,6 +23,14 @@ spec:
         env:
         - name: NEXTCLOUD_DATA_DIR
           value: /var/www/html/data
+        - name: MYSQL_HOST
+          value: mariadb-service
+        - name: MYSQL_DATABASE
+          value: nextcloud
+        - name: MYSQL_USER
+          value: nextcloud
+        - name: MYSQL_PASSWORD
+          value: nextcloudpass123
       volumes:
       - name: nextcloud-data
         persistentVolumeClaim:
