@@ -3,7 +3,13 @@ kind: Job
 metadata:
   name: ssh-key-init
 spec:
+  selector:
+    matchLabels:
+      job-name: ssh-key-init
   template:
+    metadata:
+      labels:
+        job-name: ssh-key-init
     spec:
       serviceAccountName: ssh-key-creator
       containers:
