@@ -54,6 +54,9 @@ spec:
   resources:
     requests:
       storage: 10Gi
+  storageClassName: local-path
+  volumeMode: Filesystem
+  volumeName: pvc-8c7bdc87-fc1e-46ea-98e9-15ef9f06a9fd
 ---
 apiVersion: v1
 kind: Service
