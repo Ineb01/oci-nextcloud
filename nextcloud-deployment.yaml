@@ -17,9 +17,6 @@ spec:
         image: nextcloud:latest
         ports:
         - containerPort: 80
-        volumeMounts:
-        - name: nextcloud-data
-          mountPath: /var/www/html/data
         env:
         - name: NEXTCLOUD_DATA_DIR
           value: /var/www/html/data
@@ -31,10 +28,6 @@ spec:
           value: nextcloud
         - name: MYSQL_PASSWORD
           value: nextcloudpass123
-      volumes:
-      - name: nextcloud-data
-        persistentVolumeClaim:
-          claimName: nextcloud-nfs-pvc
 ---
 apiVersion: v1
 kind: Service
