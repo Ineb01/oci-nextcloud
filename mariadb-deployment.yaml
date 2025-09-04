@@ -52,7 +52,10 @@ metadata:
   name: mariadb-pvc
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi
+  storageClassName: local-path
+  volumeMode: Filesystem
+  volumeName: pvc-90028ea8-212d-4fb6-b247-fa037be87134
