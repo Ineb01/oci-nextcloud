@@ -33,11 +33,27 @@ spec:
           mountPath: /id_rsa
           subPath: id_rsa
           readOnly: true
+        - name: nextcloud-persistent-storage
+          mountPath: /var/www/html
       volumes:
       - name: ssh-key
         secret:
           secretName: ssh-key
           defaultMode: 0600
+      - name: nextcloud-persistent-storage
+        persistentVolumeClaim:
+          claimName: nextcloud-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextcloud-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
 ---
 apiVersion: v1
 kind: Service
